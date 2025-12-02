@@ -1,0 +1,435 @@
+﻿<Page x:Class="AGROSMART_GUI.Views.Admin.GestionGastosPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Background="#F9FAFB"
+      Loaded="Page_Loaded">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ENCABEZADO -->
+            <Grid Grid.Row="0" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="💰 Gestión de Gastos" 
+                              FontSize="28" 
+                              FontWeight="Bold" 
+                              Foreground="#1F2937"
+                              Margin="0,0,0,8"/>
+                    <TextBlock Text="Visualiza y controla todos los gastos de tus tareas agrícolas" 
+                              FontSize="14" 
+                              Foreground="#6B7280"/>
+                </StackPanel>
+
+                <!-- BOTÓN EXPORTAR -->
+                <Button x:Name="btnExportar"
+                       Content="📊 Exportar"
+                       Background="#10B981"
+                       Foreground="White"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Padding="20,12"
+                       BorderThickness="0"
+                       Cursor="Hand"
+                       VerticalAlignment="Center"
+                       Click="BtnExportar_Click" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="118">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                               CornerRadius="8"
+                                               Padding="{TemplateBinding Padding}">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="#000000" Opacity="0.1" BlurRadius="8" ShadowDepth="2"/>
+                                            </Border.Effect>
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#059669"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#047857"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+
+            <!-- FILTROS DE MES Y AÑO -->
+            <!-- FILTROS DE MES Y AÑO -->
+            <Border Grid.Row="1" 
+        Background="White" 
+        CornerRadius="12" 
+        Padding="20"
+        Margin="0,0,0,24"
+        BorderBrush="#E5E7EB"
+        BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="10" ShadowDepth="0"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Mes label -->
+                        <ColumnDefinition Width="150"/>
+                        <!-- Mes combo -->
+                        <ColumnDefinition Width="20"/>
+                        <!-- Espaciador -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Año label -->
+                        <ColumnDefinition Width="120"/>
+                        <!-- Año combo -->
+                        <ColumnDefinition Width="30"/>
+                        <!-- Separador -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Desde label -->
+                        <ColumnDefinition Width="150"/>
+                        <!-- Desde picker -->
+                        <ColumnDefinition Width="20"/>
+                        <!-- Espaciador -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Hasta label -->
+                        <ColumnDefinition Width="150"/>
+                        <!-- Hasta picker -->
+                        <ColumnDefinition Width="30"/>
+                        <!-- Espaciador -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Botón limpiar -->
+                        <ColumnDefinition Width="*"/>
+                        <!-- Texto resultados -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- FILTRO POR MES -->
+                    <TextBlock Grid.Column="0"
+                   Text="📅 Mes:"
+                   FontSize="14"
+                   FontWeight="SemiBold"
+                   Foreground="#374151"
+                   VerticalAlignment="Center"
+                   Margin="0,0,12,0"/>
+
+                    <ComboBox x:Name="cmbMes"
+                  Grid.Column="1"
+                  FontSize="13"
+                  Padding="12,8"
+                  BorderBrush="#D1D5DB"
+                  SelectionChanged="FiltroChanged">
+                        <ComboBoxItem Content="Todos los meses" Tag="0" IsSelected="True"/>
+                        <ComboBoxItem Content="Enero" Tag="1"/>
+                        <ComboBoxItem Content="Febrero" Tag="2"/>
+                        <ComboBoxItem Content="Marzo" Tag="3"/>
+                        <ComboBoxItem Content="Abril" Tag="4"/>
+                        <ComboBoxItem Content="Mayo" Tag="5"/>
+                        <ComboBoxItem Content="Junio" Tag="6"/>
+                        <ComboBoxItem Content="Julio" Tag="7"/>
+                        <ComboBoxItem Content="Agosto" Tag="8"/>
+                        <ComboBoxItem Content="Septiembre" Tag="9"/>
+                        <ComboBoxItem Content="Octubre" Tag="10"/>
+                        <ComboBoxItem Content="Noviembre" Tag="11"/>
+                        <ComboBoxItem Content="Diciembre" Tag="12"/>
+                    </ComboBox>
+
+                    <!-- FILTRO POR AÑO -->
+                    <TextBlock Grid.Column="3"
+                   Text="📆 Año:"
+                   FontSize="14"
+                   FontWeight="SemiBold"
+                   Foreground="#374151"
+                   VerticalAlignment="Center"
+                   Margin="0,0,12,0"/>
+
+                    <ComboBox x:Name="cmbAnio"
+                  Grid.Column="4"
+                  FontSize="13"
+                  Padding="12,8"
+                  BorderBrush="#D1D5DB"
+                  SelectionChanged="FiltroChanged"/>
+
+                    <!-- SEPARADOR -->
+                    <Separator Grid.Column="5"
+                   VerticalAlignment="Center"
+                   Margin="0,0,10,0"/>
+
+                    <!-- FILTRO FECHA DESDE -->
+                    <TextBlock Grid.Column="6"
+                   Text="📍 Desde:"
+                   FontSize="14"
+                   FontWeight="SemiBold"
+                   Foreground="#374151"
+                   VerticalAlignment="Center"
+                   Margin="0,0,12,0"/>
+
+                    <DatePicker x:Name="dpFechaDesde"
+                    Grid.Column="7"
+                    FontSize="13"
+                    Padding="12,8"
+                    BorderBrush="#D1D5DB"
+                    SelectedDateChanged="FechaRangoChanged"/>
+
+                    <!-- FILTRO FECHA HASTA -->
+                    <TextBlock Grid.Column="9"
+                   Text="📍 Hasta:"
+                   FontSize="14"
+                   FontWeight="SemiBold"
+                   Foreground="#374151"
+                   VerticalAlignment="Center"
+                   Margin="0,0,12,0"/>
+
+                    <DatePicker x:Name="dpFechaHasta"
+                    Grid.Column="10"
+                    FontSize="13"
+                    Padding="12,8"
+                    BorderBrush="#D1D5DB"
+                    SelectedDateChanged="FechaRangoChanged"/>
+
+                    <!-- BOTÓN LIMPIAR FILTROS -->
+                    <Button x:Name="btnLimpiarFiltros"
+                Grid.Column="12"
+                Content="🔄 Limpiar Filtros"
+                Background="#EF4444"
+                Foreground="White"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Padding="16,10"
+                BorderThickness="0"
+                Cursor="Hand"
+                Click="BtnLimpiarFiltros_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="8"
+                                        Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#DC2626"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- TEXTO DE RESULTADOS -->
+                    <TextBlock x:Name="txtResultadosFiltro"
+                   Grid.Column="13"
+                   FontSize="13"
+                   Foreground="#059669"
+                   FontWeight="Medium"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="12,0,0,0"/>
+                </Grid>
+            </Border>
+
+
+            <!-- RESUMEN DE GASTOS -->
+            <Grid Grid.Row="2" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- TARJETA TOTAL GENERAL -->
+                <Border Grid.Column="0" 
+                       Background="White" 
+                       CornerRadius="12" 
+                       Padding="20"
+                       Margin="0,0,12,0"
+                       BorderBrush="#E5E7EB"
+                       BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="10" ShadowDepth="0"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="💵 Total Gastos" 
+                                  FontSize="13" 
+                                  Foreground="#6B7280" 
+                                  Margin="0,0,0,8"/>
+                        <TextBlock x:Name="txtTotalGastos" 
+                                  Text="$0" 
+                                  FontSize="28" 
+                                  FontWeight="Bold" 
+                                  Foreground="#1F2937"
+                                  Margin="0,0,0,4"/>
+                        <TextBlock x:Name="txtVariacionTotal" 
+                                  Text="0 tareas" 
+                                  FontSize="12" 
+                                  Foreground="#10B981"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- TARJETA INSUMOS -->
+                <Border Grid.Column="1" 
+                       Background="White" 
+                       CornerRadius="12" 
+                       Padding="20"
+                       Margin="0,0,12,0"
+                       BorderBrush="#E5E7EB"
+                       BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="10" ShadowDepth="0"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="🌿 Insumos" 
+                                  FontSize="13" 
+                                  Foreground="#6B7280" 
+                                  Margin="0,0,0,8"/>
+                        <TextBlock x:Name="txtTotalInsumos" 
+                                  Text="$0" 
+                                  FontSize="28" 
+                                  FontWeight="Bold" 
+                                  Foreground="#1F2937"
+                                  Margin="0,0,0,4"/>
+                        <TextBlock x:Name="txtPorcentajeInsumos" 
+                                  Text="0% del total" 
+                                  FontSize="12" 
+                                  Foreground="#6B7280"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- TARJETA PERSONAL -->
+                <Border Grid.Column="2" 
+                       Background="White" 
+                       CornerRadius="12" 
+                       Padding="20"
+                       Margin="0,0,12,0"
+                       BorderBrush="#E5E7EB"
+                       BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="10" ShadowDepth="0"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="👥 Personal" 
+                                  FontSize="13" 
+                                  Foreground="#6B7280" 
+                                  Margin="0,0,0,8"/>
+                        <TextBlock x:Name="txtTotalPersonal" 
+                                  Text="$0" 
+                                  FontSize="28" 
+                                  FontWeight="Bold" 
+                                  Foreground="#1F2937"
+                                  Margin="0,0,0,4"/>
+                        <TextBlock x:Name="txtPorcentajePersonal" 
+                                  Text="0% del total" 
+                                  FontSize="12" 
+                                  Foreground="#6B7280"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- TARJETA TRANSPORTE -->
+                <Border Grid.Column="3" 
+                       Background="White" 
+                       CornerRadius="12" 
+                       Padding="20"
+                       BorderBrush="#E5E7EB"
+                       BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="10" ShadowDepth="0"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="🚚 Transporte" 
+                                  FontSize="13" 
+                                  Foreground="#6B7280" 
+                                  Margin="0,0,0,8"/>
+                        <TextBlock x:Name="txtTotalTransporte" 
+                                  Text="$0" 
+                                  FontSize="28" 
+                                  FontWeight="Bold" 
+                                  Foreground="#1F2937"
+                                  Margin="0,0,0,4"/>
+                        <TextBlock x:Name="txtPorcentajeTransporte" 
+                                  Text="0% del total" 
+                                  FontSize="12" 
+                                  Foreground="#6B7280"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- TABLA DE GASTOS -->
+            <Border Grid.Row="3" 
+                   Background="White" 
+                   CornerRadius="12"
+                   BorderBrush="#E5E7EB"
+                   BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="10" ShadowDepth="0"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ENCABEZADO DE TABLA -->
+                    <Border Grid.Row="0" 
+                           Background="#F9FAFB" 
+                           BorderBrush="#E5E7EB"
+                           BorderThickness="0,0,0,1"
+                           CornerRadius="12,12,0,0"
+                           Padding="12,16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="1.3*"/>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.3*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Tarea" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="Fecha Creación" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="Cultivo" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="Insumos" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="4" Text="Personal" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="5" Text="Transporte" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="6" Text="Costo Total" FontSize="13" FontWeight="SemiBold" Foreground="#374151" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- FILAS DE DATOS -->
+                    <ScrollViewer Grid.Row="1" 
+                                 VerticalScrollBarVisibility="Auto"
+                                 MaxHeight="500">
+                        <StackPanel x:Name="spFilasGastos"/>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Page>

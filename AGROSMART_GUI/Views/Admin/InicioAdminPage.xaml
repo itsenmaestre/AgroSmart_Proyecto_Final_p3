@@ -1,0 +1,617 @@
+﻿<Page x:Class="AGROSMART_GUI.Views.Admin.InicioAdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent">
+
+    <Page.Resources>
+        <!-- Estilo para tarjetas de estadísticas -->
+        <Style TargetType="Border" x:Key="StatCardStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" Direction="270" 
+                                     ShadowDepth="2" BlurRadius="15" Opacity="0.08"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#2F5233" Direction="270" 
+                                             ShadowDepth="3" BlurRadius="20" Opacity="0.15"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Estilo para botones de acceso rápido -->
+        <Style TargetType="Button" x:Key="QuickAccessButton">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="1"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#000000" Direction="270" 
+                                                 ShadowDepth="1" BlurRadius="10" Opacity="0.06"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F5F9F5"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#E8F5E9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="30">
+        <StackPanel>
+            <!-- Header con saludo -->
+            <Grid Margin="0,0,0,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock x:Name="txtSaludo" 
+                              Text="¡Bienvenido de nuevo!" 
+                              FontSize="32" 
+                              FontWeight="Bold" 
+                              Foreground="#2F5233"/>
+                    <TextBlock x:Name="txtFecha" 
+                              Text="Martes, 18 de Noviembre 2025" 
+                              FontSize="14" 
+                              Foreground="#78909C"
+                              Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" 
+                        Background="#E8F5E9"
+                        CornerRadius="12"
+                        Padding="15,10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🌤️" FontSize="24" Margin="0,0,10,0"/>
+                        <StackPanel>
+                            <TextBlock Text="24°C" FontSize="18" FontWeight="Bold" Foreground="#2F5233"/>
+                            <TextBlock Text="Soleado" FontSize="11" Foreground="#66BB6A"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Tarjetas de estadísticas -->
+            <Grid Margin="0,0,0,25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Empleados Activos -->
+                <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Empleados" 
+                                      FontSize="13" 
+                                      Foreground="#78909C"
+                                      Margin="0,0,0,8"/>
+                            <TextBlock x:Name="txtEmpleados" 
+                                      Text="24" 
+                                      FontSize="32" 
+                                      FontWeight="Bold" 
+                                      Foreground="#2F5233"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock Text="↑ 12%" 
+                                          FontSize="12" 
+                                          FontWeight="SemiBold"
+                                          Foreground="#4CAF50"/>
+                                <TextBlock Text=" este mes" 
+                                          FontSize="11" 
+                                          Foreground="#B0BEC5"
+                                          Margin="4,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" 
+                                Background="#E3F2FD"
+                                Width="55" Height="55"
+                                CornerRadius="12"
+                                VerticalAlignment="Top">
+                            <TextBlock Text="👥" 
+                                      FontSize="28" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Tareas Pendientes -->
+                <Border Grid.Column="1" Style="{StaticResource StatCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Tareas Activas" 
+                                      FontSize="13" 
+                                      Foreground="#78909C"
+                                      Margin="0,0,0,8"/>
+                            <TextBlock x:Name="txtTareas" 
+                                      Text="18" 
+                                      FontSize="32" 
+                                      FontWeight="Bold" 
+                                      Foreground="#2F5233"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock Text="↓ 5%" 
+                                          FontSize="12" 
+                                          FontWeight="SemiBold"
+                                          Foreground="#FF9800"/>
+                                <TextBlock Text=" vs semana anterior" 
+                                          FontSize="11" 
+                                          Foreground="#B0BEC5"
+                                          Margin="4,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" 
+                                Background="#FFF3E0"
+                                Width="55" Height="55"
+                                CornerRadius="12"
+                                VerticalAlignment="Top">
+                            <TextBlock Text="📋" 
+                                      FontSize="28" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Cultivos -->
+                <Border Grid.Column="2" Style="{StaticResource StatCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Cultivos" 
+                                      FontSize="13" 
+                                      Foreground="#78909C"
+                                      Margin="0,0,0,8"/>
+                            <TextBlock x:Name="txtCultivos" 
+                                      Text="8" 
+                                      FontSize="32" 
+                                      FontWeight="Bold" 
+                                      Foreground="#2F5233"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock Text="↑ 2 nuevos" 
+                                          FontSize="12" 
+                                          FontWeight="SemiBold"
+                                          Foreground="#4CAF50"/>
+                                <TextBlock Text=" este mes" 
+                                          FontSize="11" 
+                                          Foreground="#B0BEC5"
+                                          Margin="4,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" 
+                                Background="#E8F5E9"
+                                Width="55" Height="55"
+                                CornerRadius="12"
+                                VerticalAlignment="Top">
+                            <TextBlock Text="🌾" 
+                                      FontSize="28" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Insumos -->
+                <Border Grid.Column="3" Style="{StaticResource StatCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Insumos Stock" 
+                                      FontSize="13" 
+                                      Foreground="#78909C"
+                                      Margin="0,0,0,8"/>
+                            <TextBlock x:Name="txtInsumos" 
+                                      Text="142" 
+                                      FontSize="32" 
+                                      FontWeight="Bold" 
+                                      Foreground="#2F5233"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock Text="⚠️ 8 bajos" 
+                                          FontSize="12" 
+                                          FontWeight="SemiBold"
+                                          Foreground="#F44336"/>
+                                <TextBlock Text=" en stock" 
+                                          FontSize="11" 
+                                          Foreground="#B0BEC5"
+                                          Margin="4,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" 
+                                Background="#FFF8E1"
+                                Width="55" Height="55"
+                                CornerRadius="12"
+                                VerticalAlignment="Top">
+                            <TextBlock Text="📦" 
+                                      FontSize="28" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Accesos Rápidos -->
+            <Border Background="White" 
+                    CornerRadius="15" 
+                    Padding="25"
+                    Margin="10,0,10,25">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Direction="270" 
+                                     ShadowDepth="2" BlurRadius="15" Opacity="0.08"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="⚡ Accesos Rápidos" 
+                              FontSize="20" 
+                              FontWeight="Bold" 
+                              Foreground="#2F5233"
+                              Margin="0,0,0,20"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Crear Tarea -->
+                        <Button Grid.Column="0" 
+                                Style="{StaticResource QuickAccessButton}"
+                                Tag="#E8F5E9"
+                                Click="BtnCrearTarea_Click">
+                            <StackPanel>
+                                <Border Background="#E8F5E9"
+                                        Width="60" Height="60"
+                                        CornerRadius="30"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,0,15">
+                                    <TextBlock Text="✅" FontSize="28"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Crear Tarea"
+                                          FontSize="14"
+                                          FontWeight="SemiBold"
+                                          Foreground="#37474F"
+                                          TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Registrar Empleado -->
+                        <Button Grid.Column="1" 
+                                Style="{StaticResource QuickAccessButton}"
+                                Tag="#E3F2FD"
+                                Click="BtnRegistrarEmpleado_Click">
+                            <StackPanel>
+                                <Border Background="#E3F2FD"
+                                        Width="60" Height="60"
+                                        CornerRadius="30"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,0,15">
+                                    <TextBlock Text="👤" FontSize="28"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Registrar Empleado"
+                                          FontSize="14"
+                                          FontWeight="SemiBold"
+                                          Foreground="#37474F"
+                                          TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Agregar Insumo -->
+                        <Button Grid.Column="2" 
+                                Style="{StaticResource QuickAccessButton}"
+                                Tag="#FFF8E1"
+                                Click="BtnAgregarInsumo_Click">
+                            <StackPanel>
+                                <Border Background="#FFF8E1"
+                                        Width="60" Height="60"
+                                        CornerRadius="30"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,0,15">
+                                    <TextBlock Text="📦" FontSize="28"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Agregar Insumo"
+                                          FontSize="14"
+                                          FontWeight="SemiBold"
+                                          Foreground="#37474F"
+                                          TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Registrar Cosecha -->
+                        <Button Grid.Column="3" 
+                                Style="{StaticResource QuickAccessButton}"
+                                Tag="#FCE4EC"
+                                Click="BtnRegistrarCosecha_Click">
+                            <StackPanel>
+                                <Border Background="#FCE4EC"
+                                        Width="60" Height="60"
+                                        CornerRadius="30"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,0,15">
+                                    <TextBlock Text="🌽" FontSize="28"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Registrar Cosecha"
+                                          FontSize="14"
+                                          FontWeight="SemiBold"
+                                          Foreground="#37474F"
+                                          TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Sección de Actividad Reciente y Alertas -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Actividad Reciente -->
+                <Border Grid.Column="0" 
+                        Background="White" 
+                        CornerRadius="15" 
+                        Padding="25"
+                        Margin="10,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" Direction="270" 
+                                         ShadowDepth="2" BlurRadius="15" Opacity="0.08"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="📊 Actividad Reciente" 
+                                  FontSize="18" 
+                                  FontWeight="Bold" 
+                                  Foreground="#2F5233"
+                                  Margin="0,0,0,20"/>
+
+                        <!-- Items de actividad -->
+                        <StackPanel x:Name="activityContainer">
+                            <!-- Actividad 1 -->
+                            <Border Background="#F8F9FA" 
+                                    CornerRadius="10" 
+                                    Padding="15"
+                                    Margin="0,0,0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0" 
+                                            Background="#4CAF50"
+                                            Width="40" Height="40"
+                                            CornerRadius="20"
+                                            Margin="0,0,15,0">
+                                        <TextBlock Text="✓" 
+                                                  FontSize="20" 
+                                                  FontWeight="Bold"
+                                                  Foreground="White"
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Tarea completada: Riego Zona A" 
+                                                  FontSize="14" 
+                                                  FontWeight="SemiBold"
+                                                  Foreground="#37474F"/>
+                                        <TextBlock Text="Juan Pérez - Hace 2 horas" 
+                                                  FontSize="12" 
+                                                  Foreground="#78909C"
+                                                  Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Actividad 2 -->
+                            <Border Background="#F8F9FA" 
+                                    CornerRadius="10" 
+                                    Padding="15"
+                                    Margin="0,0,0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0" 
+                                            Background="#2196F3"
+                                            Width="40" Height="40"
+                                            CornerRadius="20"
+                                            Margin="0,0,15,0">
+                                        <TextBlock Text="+" 
+                                                  FontSize="24" 
+                                                  FontWeight="Bold"
+                                                  Foreground="White"
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Nuevo cultivo registrado: Tomate" 
+                                                  FontSize="14" 
+                                                  FontWeight="SemiBold"
+                                                  Foreground="#37474F"/>
+                                        <TextBlock Text="Administrador - Hace 5 horas" 
+                                                  FontSize="12" 
+                                                  Foreground="#78909C"
+                                                  Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Actividad 3 -->
+                            <Border Background="#F8F9FA" 
+                                    CornerRadius="10" 
+                                    Padding="15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0" 
+                                            Background="#FF9800"
+                                            Width="40" Height="40"
+                                            CornerRadius="20"
+                                            Margin="0,0,15,0">
+                                        <TextBlock Text="📦" 
+                                                  FontSize="20"
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Insumo bajo en stock: Fertilizante NPK" 
+                                                  FontSize="14" 
+                                                  FontWeight="SemiBold"
+                                                  Foreground="#37474F"/>
+                                        <TextBlock Text="Sistema - Hace 1 día" 
+                                                  FontSize="12" 
+                                                  Foreground="#78909C"
+                                                  Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Alertas Importantes -->
+                <Border Grid.Column="1" 
+                        Background="White" 
+                        CornerRadius="15" 
+                        Padding="20"
+                        Margin="10,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" Direction="270" 
+                                         ShadowDepth="2" BlurRadius="15" Opacity="0.08"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="⚠️ Alertas" 
+                                  FontSize="18" 
+                                  FontWeight="Bold" 
+                                  Foreground="#2F5233"
+                                  Margin="0,0,0,15"/>
+
+                        <!-- Alerta 1 -->
+                        <Border Background="#FFEBEE" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock Text="🔴 Urgente" 
+                                          FontSize="11" 
+                                          FontWeight="Bold"
+                                          Foreground="#D32F2F"
+                                          Margin="0,0,0,5"/>
+                                <TextBlock Text="8 insumos con stock crítico" 
+                                          FontSize="13" 
+                                          TextWrapping="Wrap"
+                                          Foreground="#37474F"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Alerta 2 -->
+                        <Border Background="#FFF3E0" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock Text="🟡 Atención" 
+                                          FontSize="11" 
+                                          FontWeight="Bold"
+                                          Foreground="#F57C00"
+                                          Margin="0,0,0,5"/>
+                                <TextBlock Text="3 tareas próximas a vencer" 
+                                          FontSize="13" 
+                                          TextWrapping="Wrap"
+                                          Foreground="#37474F"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Alerta 3 -->
+                        <Border Background="#E8F5E9" 
+                                CornerRadius="10" 
+                                Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="🟢 Info" 
+                                          FontSize="11" 
+                                          FontWeight="Bold"
+                                          Foreground="#388E3C"
+                                          Margin="0,0,0,5"/>
+                                <TextBlock Text="Cosecha programada esta semana" 
+                                          FontSize="13" 
+                                          TextWrapping="Wrap"
+                                          Foreground="#37474F"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

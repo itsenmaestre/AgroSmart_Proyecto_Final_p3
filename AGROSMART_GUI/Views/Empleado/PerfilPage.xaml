@@ -1,0 +1,151 @@
+﻿<Page x:Class="AGROSMART_GUI.Views.Empleado.PerfilPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Perfil"
+      Background="Transparent">
+
+    <Page.Resources>
+        <Style x:Key="InfoLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#555"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="InfoValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="40,30">
+
+            <!-- Encabezado -->
+            <StackPanel HorizontalAlignment="Center" Margin="0,0,0,40">
+                <!-- Avatar circular -->
+                <Border Background="#4CAF50" 
+                        Width="120" Height="120" 
+                        CornerRadius="60" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,0,0,20">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#4CAF50" BlurRadius="20" Direction="270" ShadowDepth="0" Opacity="0.4"/>
+                    </Border.Effect>
+                    <TextBlock Text="👤" 
+                               FontSize="60" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               Foreground="White"/>
+                </Border>
+
+                <TextBlock x:Name="txtNombreCompleto" 
+                           Text="Nombre del Empleado" 
+                           FontSize="26" 
+                           FontWeight="Bold" 
+                           Foreground="#333"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock Text="Empleado" 
+                           FontSize="14" 
+                           Foreground="#4CAF50"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Información del perfil -->
+            <Border Background="White" 
+                    CornerRadius="12" 
+                    Padding="40">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.15" Direction="270"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Columna izquierda -->
+                    <StackPanel Grid.Column="0">
+                        <!-- Identificación -->
+                        <TextBlock Text="Identificación" Style="{StaticResource InfoLabel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="🆔" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtId" Text="-" Style="{StaticResource InfoValue}" Margin="0"/>
+                        </StackPanel>
+
+                        <!-- Email -->
+                        <TextBlock Text="Correo Electrónico" Style="{StaticResource InfoLabel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="📧" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtEmail" Text="-" Style="{StaticResource InfoValue}" Margin="0"/>
+                        </StackPanel>
+
+                        <!-- Teléfono -->
+                        <TextBlock Text="Teléfono" Style="{StaticResource InfoLabel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="📱" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtTelefono" Text="-" Style="{StaticResource InfoValue}" Margin="0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Separador vertical -->
+                    <Border Grid.Column="1" 
+                            Width="1" 
+                            Background="#E0E0E0" 
+                            Margin="10,0"/>
+
+                    <!-- Columna derecha -->
+                    <StackPanel Grid.Column="2">
+                        <!-- Tarifa por hora -->
+                        <TextBlock Text="Tarifa por Hora" Style="{StaticResource InfoLabel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="💵" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtMontoHora" Text="-" Style="{StaticResource InfoValue}" Margin="0" Foreground="#4CAF50" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <!-- Tarifa por jornal -->
+                        <TextBlock Text="Tarifa por Jornal" Style="{StaticResource InfoLabel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="💰" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtMontoJornal" Text="-" Style="{StaticResource InfoValue}" Margin="0" Foreground="#4CAF50" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <!-- Estado -->
+                        <TextBlock Text="Estado de la Cuenta" Style="{StaticResource InfoLabel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Ellipse Width="12" Height="12" Fill="#4CAF50" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Activo" FontSize="15" Foreground="#4CAF50" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Información adicional -->
+            <Border Background="#E8F5E9" 
+                    CornerRadius="8" 
+                    Padding="20" 
+                    Margin="0,20,0,0">
+                <StackPanel>
+                    <TextBlock Text="ℹ️ Información Importante" 
+                               FontSize="14" 
+                               FontWeight="SemiBold" 
+                               Foreground="#2E7D32" 
+                               Margin="0,0,0,10"/>
+                    <TextBlock TextWrapping="Wrap" 
+                               FontSize="13" 
+                               Foreground="#2E7D32" 
+                               LineHeight="20">
+                        Si necesitas actualizar tu información de contacto o tienes dudas sobre tus tarifas, 
+                        por favor contacta a tu administrador. Los cambios en tarifas requieren autorización administrativa.
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

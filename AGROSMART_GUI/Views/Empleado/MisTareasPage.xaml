@@ -1,0 +1,332 @@
+﻿<Page x:Class="AGROSMART_GUI.Views.Empleado.MisTareasPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="clr-namespace:AGROSMART_GUI.Converters"
+      Title="Mis Tareas"
+      Background="Transparent">
+
+    <Page.Resources>
+        <!-- Registrar el converter -->
+        <converters:EstadoToColorConverter x:Key="EstadoToColorConverter"/>
+
+        <!-- Estilo para headers de columna -->
+        <Style x:Key="ColumnHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2F5233"/>
+            <Setter Property="Padding" Value="15,12"/>
+        </Style>
+
+        <!-- Estilo para celdas -->
+        <Style x:Key="CellText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="15,0"/>
+        </Style>
+
+        <!-- Estilo para badges de estado -->
+        <Style x:Key="EstadoBadge" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="12,5"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <!-- Estilo para ComboBox -->
+        <Style x:Key="FiltroComboBox" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="35,25,35,30">
+
+            <!-- Header -->
+            <Grid Margin="0,0,0,35">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#E8F5E9" Width="60" Height="60" 
+                        CornerRadius="30" Margin="0,0,20,0">
+                    <TextBlock Text="📋" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="Mis Tareas Asignadas" FontSize="32" FontWeight="Bold" 
+                               Foreground="#2F5233" Margin="0,0,0,5"/>
+                    <TextBlock Text="Gestiona y visualiza tus tareas programadas" FontSize="14" Foreground="#7F8C8D"/>
+                </StackPanel>
+
+                <Border Grid.Column="2" Background="White" CornerRadius="12" Padding="20,12"
+                        VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.1"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="Total de Tareas" FontSize="11" Foreground="#7F8C8D" 
+                                   HorizontalAlignment="Center" Margin="0,0,0,3"/>
+                        <TextBlock x:Name="txtTotalTareas" Text="0" FontSize="24" FontWeight="Bold" 
+                                   Foreground="#4CAF50" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Tarjetas de resumen rápido -->
+            <Grid Margin="0,0,0,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Card: Pendientes -->
+                <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.08"/>
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="#FFF3E0" Width="45" Height="45" CornerRadius="22.5" Margin="0,0,15,0">
+                            <TextBlock Text="⏳" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="PENDIENTES" FontSize="11" FontWeight="SemiBold" Foreground="#F39C12"/>
+                            <TextBlock x:Name="txtPendientes" Text="0" FontSize="22" FontWeight="Bold" Foreground="#2F5233"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Background="White" CornerRadius="12" Padding="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.08"/>
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="#E3F2FD" Width="45" Height="45" CornerRadius="22.5" Margin="0,0,15,0">
+                            <TextBlock Text="⚡" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="EN EJECUCIÓN" FontSize="11" FontWeight="SemiBold" Foreground="#2196F3"/>
+                            <TextBlock x:Name="txtEjecucion" Text="0" FontSize="22" FontWeight="Bold" Foreground="#2F5233"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="4" Background="White" CornerRadius="12" Padding="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.08"/>
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="#E8F5E9" Width="45" Height="45" CornerRadius="22.5" Margin="0,0,15,0">
+                            <TextBlock Text="✅" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="FINALIZADAS" FontSize="11" FontWeight="SemiBold" Foreground="#4CAF50"/>
+                            <TextBlock x:Name="txtFinalizadas" Text="0" FontSize="22" FontWeight="Bold" Foreground="#2F5233"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Tabla de tareas -->
+            <Border Background="White" CornerRadius="16" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="3" BlurRadius="25" Opacity="0.08"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Título de la tabla -->
+                    <Border Grid.Row="0" Padding="25,20">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Background="#E8F5E9" CornerRadius="8" Padding="8" Margin="0,0,12,0">
+                                <TextBlock Text="📝" FontSize="18"/>
+                            </Border>
+                            <TextBlock Text="Lista de Tareas" FontSize="18" FontWeight="SemiBold" 
+                                       Foreground="#2F5233" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Sección de Filtro -->
+                    <Border Grid.Row="1" Background="#F8FAF9" Margin="20,0,20,10" Padding="15" CornerRadius="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Etiqueta -->
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
+                                <TextBlock Text="🔍" FontSize="18" Margin="0,0,8,0"/>
+                                <TextBlock Text="Filtrar por estado:" FontSize="14" FontWeight="SemiBold" 
+                                           Foreground="#2F5233" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- ComboBox -->
+                            <ComboBox Grid.Column="1" 
+                                      x:Name="cmbFiltroEstado" 
+                                      Style="{StaticResource FiltroComboBox}"
+                                      SelectionChanged="CmbFiltroEstado_SelectionChanged">
+                            </ComboBox>
+
+                            <!-- Botón Limpiar Filtro -->
+                            <Button Grid.Column="2" 
+                                    x:Name="btnLimpiarFiltro" 
+                                    Content="Limpiar Filtro" 
+                                    Click="BtnLimpiarFiltro_Click"
+                                    Margin="15,0,0,0"
+                                    Padding="15,8"
+                                    Background="#E8F5E9"
+                                    BorderBrush="#4CAF50"
+                                    BorderThickness="1"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="#4CAF50"
+                                    Cursor="Hand">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            CornerRadius="8"
+                                                            Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#4CAF50"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Encabezados -->
+                    <Border Grid.Row="2" Background="#F8FAF9" Margin="20,0,20,0" CornerRadius="10,10,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Código" Style="{StaticResource ColumnHeader}"/>
+                            <TextBlock Grid.Column="1" Text="Tarea" Style="{StaticResource ColumnHeader}"/>
+                            <TextBlock Grid.Column="2" Text="Estado" Style="{StaticResource ColumnHeader}"/>
+                            <TextBlock Grid.Column="3" Text="Fecha Programada" Style="{StaticResource ColumnHeader}"/>
+                            <TextBlock Grid.Column="4" Text="Horas Trabajadas" Style="{StaticResource ColumnHeader}"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Lista de tareas -->
+                    <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" MaxHeight="400" Margin="20,0,20,20">
+                        <ItemsControl x:Name="lstTareas">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#E8F5E9" BorderThickness="0,0,0,1" Padding="0,18">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FAFAFA"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="140"/>
+                                                <ColumnDefinition Width="130"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Código con icono -->
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0">
+                                                <Border Background="#E8F5E9" Width="32" Height="32" CornerRadius="16" 
+                                                        Margin="0,0,10,0">
+                                                    <TextBlock Text="#" FontSize="14" FontWeight="Bold" 
+                                                               Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="{Binding Codigo}" Style="{StaticResource CellText}" 
+                                                           FontWeight="SemiBold" Foreground="#4CAF50"/>
+                                            </StackPanel>
+
+                                            <!-- Nombre de la tarea -->
+                                            <TextBlock Grid.Column="1" Text="{Binding Nombre}" 
+                                                       Style="{StaticResource CellText}" 
+                                                       FontWeight="Medium"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       ToolTip="{Binding Nombre}"/>
+
+                                            <!-- Estado con badge -->
+                                            <Border Grid.Column="2" Style="{StaticResource EstadoBadge}" Margin="15,0">
+                                                <Border.Background>
+                                                    <SolidColorBrush>
+                                                        <SolidColorBrush.Color>
+                                                            <MultiBinding Converter="{StaticResource EstadoToColorConverter}">
+                                                                <Binding Path="Estado"/>
+                                                            </MultiBinding>
+                                                        </SolidColorBrush.Color>
+                                                    </SolidColorBrush>
+                                                </Border.Background>
+                                                <TextBlock Text="{Binding Estado}" FontSize="12" FontWeight="Medium" 
+                                                           Foreground="White" HorizontalAlignment="Center"/>
+                                            </Border>
+
+                                            <!-- Fecha -->
+                                            <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="15,0">
+                                                <TextBlock Text="📅" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding FechaProgramada}" Style="{StaticResource CellText}"/>
+                                            </StackPanel>
+
+                                            <!-- Horas con badge -->
+                                            <Border Grid.Column="4" Background="#E8F5E9" CornerRadius="8" 
+                                                    Padding="12,6" HorizontalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="⏱️" FontSize="14" Margin="0,0,6,0"/>
+                                                    <TextBlock Text="{Binding HorasAcumuladas}" FontSize="13" 
+                                                               FontWeight="SemiBold" Foreground="#4CAF50"/>
+                                                    <TextBlock Text="h" FontSize="13" Foreground="#7F8C8D" Margin="2,0,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,258 @@
+﻿<Page x:Class="AGROSMART_GUI.Views.ChatBotPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="AgroBot - Asistente Virtual"
+      Background="#F9FAFB">
+
+    <Page.Resources>
+        <!-- Estilo para botones de acción rápida -->
+        <Style x:Key="QuickActionButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="15"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F3F4F6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Estilo para el botón de enviar -->
+        <Style x:Key="SendButton" TargetType="Button">
+            <Setter Property="Background" Value="#00A859"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#008C48"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" 
+                Background="#00A859" 
+                MouseLeftButtonDown="Header_MouseLeftButtonDown"
+                Cursor="Hand">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.2"/>
+            </Border.Effect>
+
+            <Grid Margin="20,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Círculo con emoji -->
+                    <Border Width="40" 
+                            Height="40" 
+                            Background="White" 
+                            CornerRadius="20"
+                            Margin="0,0,15,0">
+                        <TextBlock Text="🤖" 
+                                 FontSize="24" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"/>
+                    </Border>
+
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="AgroBot" 
+                                 FontSize="18" 
+                                 FontWeight="Bold" 
+                                 Foreground="White"/>
+                        <TextBlock Text="Asistente Virtual Agrícola" 
+                                 FontSize="12" 
+                                 Foreground="#E0F2E9"
+                                 Margin="0,2,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Botón Cerrar (opcional en Page) -->
+                <Button x:Name="btnClose"
+                        HorizontalAlignment="Right"
+                        Width="35"
+                        Height="35"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="White"
+                        FontSize="20"
+                        Cursor="Hand"
+                        Click="BtnClose_Click"
+                        Visibility="Collapsed">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="17.5">
+                                <TextBlock Text="✕" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center"
+                                         Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#008C48"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Acciones Rápidas -->
+        <Border Grid.Row="1" 
+                Background="White"
+                BorderBrush="#E5E7EB" 
+                BorderThickness="0,0,0,1"
+                Padding="20,15">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                        VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource QuickActionButton}"
+                            Tag="¿Cuáles son mis cultivos activos?"
+                            Click="QuickAction_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🌱" Margin="0,0,5,0"/>
+                            <TextBlock Text="Cultivos"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource QuickActionButton}"
+                            Tag="Muéstrame los gastos del mes"
+                            Click="QuickAction_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="💰" Margin="0,0,5,0"/>
+                            <TextBlock Text="Gastos"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource QuickActionButton}"
+                            Tag="¿Qué tareas tengo pendientes?"
+                            Click="QuickAction_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="✅" Margin="0,0,5,0"/>
+                            <TextBlock Text="Tareas"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource QuickActionButton}"
+                            Tag="Lista de empleados"
+                            Click="QuickAction_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="👥" Margin="0,0,5,0"/>
+                            <TextBlock Text="Empleados"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Área de Mensajes -->
+        <Border Grid.Row="2" 
+                Background="#F9FAFB"
+                Padding="20">
+            <ScrollViewer x:Name="scrollViewer"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="spMessages"/>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Input Area -->
+        <Border Grid.Row="3"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="0,1,0,0"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="-2" Opacity="0.1"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- TextBox de entrada -->
+                <Border Grid.Column="0"
+                        Background="#F3F4F6"
+                        CornerRadius="22"
+                        Padding="18,12"
+                        Margin="0,0,12,0">
+                    <TextBox x:Name="txtInput"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             FontSize="14"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             MaxHeight="100"
+                             AcceptsReturn="False"
+                             VerticalScrollBarVisibility="Auto"
+                             KeyDown="TxtInput_KeyDown"
+                             Foreground="#374151">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="0"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Border>
+
+                <!-- Botón Enviar -->
+                <Button x:Name="btnSend"
+                        Grid.Column="1"
+                        Style="{StaticResource SendButton}"
+                        Click="BtnSend_Click">
+                    <TextBlock Text="➤" 
+                             FontSize="18" 
+                             FontWeight="Bold"
+                             VerticalAlignment="Center"
+                             Margin="0,0,0,1"/>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

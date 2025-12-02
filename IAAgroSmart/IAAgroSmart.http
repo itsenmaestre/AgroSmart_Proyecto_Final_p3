@@ -1,0 +1,6 @@
+@IAAgroSmart_HostAddress = http://localhost:5201
+
+GET {{IAAgroSmart_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

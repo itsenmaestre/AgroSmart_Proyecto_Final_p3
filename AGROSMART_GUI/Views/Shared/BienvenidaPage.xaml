@@ -1,0 +1,256 @@
+﻿<Window x:Class="AGROSMART_GUI.Views.Shared.BienvenidaPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bienvenido"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
+        WindowState="Maximized"
+        Background="#F9FAFB">
+
+    <Window.Resources>
+        <!-- Animación de pulso del logo -->
+        <Storyboard x:Key="LogoPulse" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetName="LogoScale"
+                           Storyboard.TargetProperty="ScaleX"
+                           From="1" To="1.08" Duration="0:0:1.5">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="LogoScale"
+                           Storyboard.TargetProperty="ScaleY"
+                           From="1" To="1.08" Duration="0:0:1.5">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <!-- Animación de rotación del borde -->
+        <Storyboard x:Key="BorderRotate" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="LogoRotate"
+                           Storyboard.TargetProperty="Angle"
+                           From="0" To="360" Duration="0:0:20"/>
+        </Storyboard>
+
+        <!-- Animación de fade in del título -->
+        <Storyboard x:Key="TitleFadeIn">
+            <DoubleAnimation Storyboard.TargetName="TitleText"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0" To="1" Duration="0:0:0.8"
+                           BeginTime="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="SubtitleText"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0" To="1" Duration="0:0:0.8"
+                           BeginTime="0:0:0.6"/>
+        </Storyboard>
+
+        <!-- Animación de las partículas flotantes -->
+        <Storyboard x:Key="Particle1Anim" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Particle1Trans"
+                           Storyboard.TargetProperty="Y"
+                           From="0" To="-300" Duration="0:0:4"/>
+            <DoubleAnimation Storyboard.TargetName="Particle1"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0" To="0.6" Duration="0:0:1"/>
+            <DoubleAnimation Storyboard.TargetName="Particle1"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.6" To="0" Duration="0:0:1"
+                           BeginTime="0:0:3"/>
+        </Storyboard>
+
+        <Storyboard x:Key="Particle2Anim" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Particle2Trans"
+                           Storyboard.TargetProperty="Y"
+                           From="0" To="-350" Duration="0:0:5"/>
+            <DoubleAnimation Storyboard.TargetName="Particle2"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0" To="0.5" Duration="0:0:1.2"/>
+            <DoubleAnimation Storyboard.TargetName="Particle2"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.5" To="0" Duration="0:0:1.2"
+                           BeginTime="0:0:3.8"/>
+        </Storyboard>
+
+        <Storyboard x:Key="Particle3Anim" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Particle3Trans"
+                           Storyboard.TargetProperty="Y"
+                           From="0" To="-320" Duration="0:0:4.5"/>
+            <DoubleAnimation Storyboard.TargetName="Particle3"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0" To="0.7" Duration="0:0:1.1"/>
+            <DoubleAnimation Storyboard.TargetName="Particle3"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.7" To="0" Duration="0:0:1.1"
+                           BeginTime="0:0:3.4"/>
+        </Storyboard>
+
+        <!-- Animación del resplandor -->
+        <Storyboard x:Key="GlowPulse" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetName="GlowEllipse"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.4" To="0.7" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <!-- Animación de los puntos de carga -->
+        <Storyboard x:Key="Dot1Anim" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Dot1"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.3" To="1" Duration="0:0:0.5"
+                           AutoReverse="True" BeginTime="0:0:0"/>
+        </Storyboard>
+
+        <Storyboard x:Key="Dot2Anim" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Dot2"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.3" To="1" Duration="0:0:0.5"
+                           AutoReverse="True" BeginTime="0:0:0.2"/>
+        </Storyboard>
+
+        <Storyboard x:Key="Dot3Anim" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Dot3"
+                           Storyboard.TargetProperty="Opacity"
+                           From="0.3" To="1" Duration="0:0:0.5"
+                           AutoReverse="True" BeginTime="0:0:0.4"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#E9F5EC" Offset="0.0"/>
+                <GradientStop Color="#D4EDE0" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Partículas flotantes de fondo -->
+        <Canvas>
+            <Ellipse x:Name="Particle1" Width="20" Height="20" Fill="#00A859" 
+                    Canvas.Left="200" Canvas.Bottom="100" Opacity="0">
+                <Ellipse.Effect>
+                    <BlurEffect Radius="3"/>
+                </Ellipse.Effect>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="Particle1Trans" Y="0"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+
+            <Ellipse x:Name="Particle2" Width="15" Height="15" Fill="#34D399" 
+                    Canvas.Right="250" Canvas.Bottom="150" Opacity="0">
+                <Ellipse.Effect>
+                    <BlurEffect Radius="2.5"/>
+                </Ellipse.Effect>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="Particle2Trans" Y="0"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+
+            <Ellipse x:Name="Particle3" Width="18" Height="18" Fill="#10B981" 
+                    Canvas.Left="600" Canvas.Bottom="120" Opacity="0">
+                <Ellipse.Effect>
+                    <BlurEffect Radius="2.8"/>
+                </Ellipse.Effect>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="Particle3Trans" Y="0"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+        </Canvas>
+
+        <!-- Círculo decorativo giratorio -->
+        <Ellipse Width="600" Height="600" 
+                Stroke="#00A859" StrokeThickness="2" 
+                StrokeDashArray="20,15" Opacity="0.1"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                RenderTransformOrigin="0.5,0.5">
+            <Ellipse.RenderTransform>
+                <RotateTransform x:Name="LogoRotate" Angle="0"/>
+            </Ellipse.RenderTransform>
+        </Ellipse>
+
+        <!-- Contenido centrado -->
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            <!-- Resplandor detrás del logo -->
+            <Grid>
+                <Ellipse x:Name="GlowEllipse" Width="160" Height="160" Opacity="0.5">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#00A859" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <!-- Ícono o logo con animación -->
+                <Border Background="#00A859" Width="120" Height="120" 
+                       CornerRadius="60" RenderTransformOrigin="0.5,0.5">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#00A859" BlurRadius="30" 
+                                        ShadowDepth="0" Opacity="0.6"/>
+                    </Border.Effect>
+                    <Border.RenderTransform>
+                        <ScaleTransform x:Name="LogoScale" ScaleX="1" ScaleY="1"/>
+                    </Border.RenderTransform>
+                    <Viewbox>
+                        <TextBlock Text="🏡" FontSize="72" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Center"/>
+                    </Viewbox>
+                </Border>
+            </Grid>
+
+            <!-- Texto principal con fade in -->
+            <TextBlock x:Name="TitleText" 
+                       Text="¡Bienvenido a AgroSmart!" 
+                       FontSize="36" 
+                       FontWeight="Bold" 
+                       Foreground="#1B4332"
+                       Margin="0,40,0,10"
+                       HorizontalAlignment="Center"
+                       Opacity="0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#00A859" BlurRadius="10" 
+                                    ShadowDepth="0" Opacity="0.2"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <!-- Subtítulo con fade in -->
+            <TextBlock x:Name="SubtitleText"
+                       Text="Cargando su entorno personalizado..." 
+                       FontSize="16"
+                       Foreground="#2F5233"
+                       Opacity="0"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10"/>
+
+            <!-- Puntos animados -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,35">
+                <Ellipse x:Name="Dot1" Width="8" Height="8" Fill="#00A859" Margin="3" Opacity="0.5"/>
+                <Ellipse x:Name="Dot2" Width="8" Height="8" Fill="#00A859" Margin="3" Opacity="0.5"/>
+                <Ellipse x:Name="Dot3" Width="8" Height="8" Fill="#00A859" Margin="3" Opacity="0.5"/>
+            </StackPanel>
+
+            <!-- Barra de progreso -->
+            <Border Background="#F3F4F6" CornerRadius="10" Width="320" Height="8">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.1"/>
+                </Border.Effect>
+                <ProgressBar IsIndeterminate="True" Height="8" 
+                             Background="Transparent" BorderThickness="0">
+                    <ProgressBar.Foreground>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#00A859" Offset="0"/>
+                            <GradientStop Color="#34D399" Offset="0.5"/>
+                            <GradientStop Color="#00A859" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ProgressBar.Foreground>
+                </ProgressBar>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>
